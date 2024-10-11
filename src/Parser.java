@@ -43,18 +43,12 @@ public class Parser {
             if (machineCodeOpcode != null) {
                 machineCode.append(machineCodeOpcode).append(" "); // adds updated opcode first
 
-                String cleanAddress = address.replaceFirst("(?i)0x", ""); // checks 0x and removes
+                String cleanAddress = address.replaceFirst("(?i)0x", ""); // checks 0x and removes (?i) makes it case insensitive
                 String correctedAddress = String.format("%4s", cleanAddress).replace(' ', '0'); //adds 0s to the left till its size 4
+                String SplitAddress1 = correctedAddress.substring(0,2);
+                String SplitAddress2 = correctedAddress.substring(2,4);
+                machineCode.append(SplitAddress1).append(" ").append(SplitAddress2).append(" "); // adds corrected size to finished machine code
 
-                machineCode.append(correctedAddress.toUpperCase()).append(" "); // adds corrected size to finished machine code
-
-                //if (mode.equals("i")) {
-                //
-                //    machineCode.append(address.substring(2)).append(" ");
-                //} else if (mode.equals("d")) {
-                //
-                //    machineCode.append(address.substring(2)).append(" ");
-                //}
 
             }
         }
