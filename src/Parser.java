@@ -25,17 +25,19 @@ public class Parser {
         opcodeMap.put("BRNE","1A");
     }
     public static void main(String[] args) throws IOException {
-        String filePath = "/Users/benwilson/Downloads/Project - Assembler/code/program4.pep";
+        String filePath = "/Users/benwilson/Downloads/Project - Assembler/code/program2.pep";
         String documentContent = Files.readString(Paths.get(filePath));
         System.out.println(documentContent);
 
         Pattern mainPattern = Pattern.compile("([A-Z]+)\\s(0x[0-9A-Fa-f]+),\\s(i|d)"); // square brackets any character inside them, parentheses allow alteration, so i or d, need all 3
         Pattern simplifiedPattern = Pattern.compile("(ASLA|ASRA)"); // for ASLA and ASRA
+        Pattern branchPattern = Pattern.compile("(BRNE)");
         Pattern stopPattern = Pattern.compile("(STOP)");
         Pattern endPattern = Pattern.compile("\\.END");
 
         Matcher mainMatcher = mainPattern.matcher(documentContent);
         Matcher simplifiedMatcher = simplifiedPattern.matcher(documentContent);
+        Matcher branchMatcher = branchPattern.matcher(documentContent);
         Matcher stopMatcher = stopPattern.matcher(documentContent);
         Matcher endMatcher = endPattern.matcher(documentContent);
         StringBuilder machineCode = new StringBuilder();
@@ -43,11 +45,11 @@ public class Parser {
         while (position < documentContent.length()){
             boolean mainMatch = mainMatcher.find(position);
             boolean simplifiedMatch = simplifiedMatcher.find(position);
+            boolean branchMatch = branchMatcher.find(position);
 
             if (mainMatch && (!simplifiedMatch || mainMatcher.start() < simplifiedMatcher.start())) {
                 String opcode = mainMatcher.group(1);
                 String address = mainMatcher.group(2);
-                String mode = mainMatcher.group(3);
                 String machineCodeOpcode = opcodeMap.get(opcode);
                 if (machineCodeOpcode != null) {
                     machineCode.append(machineCodeOpcode).append(" ");
@@ -61,13 +63,21 @@ public class Parser {
                 // Update the position to continue after this match
                 position = mainMatcher.end();
             } else if (simplifiedMatch) {
-                String opcode = simplifiedMatcher.group(1);
-                String machineCodeOpcode = opcodeMap.get(opcode);
-                if (machineCodeOpcode != null) {
-                    machineCode.append(machineCodeOpcode).append(" ");
+                String tempOpcode = simplifiedMatcher.group(1);
+                String tempMachineCodeOpcode = opcodeMap.get(tempOpcode);
+                if (tempMachineCodeOpcode != null) {
+                    machineCode.append(tempMachineCodeOpcode).append(" ");
                 }
                 // Update the position to continue after this match
                 position = simplifiedMatcher.end();
+            } else if (branchMatch) {
+                String tempOpcode = branchMatcher.group(1);
+                String tempMachineCodeOpcode = opcodeMap.get(tempOpcode);
+                if (tempMachineCodeOpcode != null) {
+                    machineCode.append(tempMachineCodeOpcode).append(" 00 03 ");
+                }
+                // Update the position to continue after this match
+                position = branchMatcher.end();
             } else {
                 break; // No more matches
             }
