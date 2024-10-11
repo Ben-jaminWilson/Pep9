@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="486ce153-8aa1-4b8a-a7b3-6e66a600e4ea" name="Changes" comment=":tada: initial commit">
+    <list default="true" id="486ce153-8aa1-4b8a-a7b3-6e66a600e4ea" name="Changes" comment=":sparkles: added splitting of address">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.java" afterDir="false" />
     </list>
@@ -65,7 +65,14 @@
       <option name="project" value="LOCAL" />
       <updated>1728680368643</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=":sparkles: added splitting of address">
+      <created>1728683008464</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728683008464</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -81,6 +88,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value=":tada: initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value=":tada: initial commit" />
+    <MESSAGE value=":sparkles: added splitting of address" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: added splitting of address" />
   </component>
 </project>

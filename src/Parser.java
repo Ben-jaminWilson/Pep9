@@ -25,38 +25,56 @@ public class Parser {
         opcodeMap.put("BRNE","1A");
     }
     public static void main(String[] args) throws IOException {
-        String filePath = "/Users/benwilson/Downloads/Project - Assembler/code/program3.pep";
+        String filePath = "/Users/benwilson/Downloads/Project - Assembler/code/program4.pep";
         String documentContent = Files.readString(Paths.get(filePath));
         System.out.println(documentContent);
 
-        Pattern mainPattern = Pattern.compile("([A-Z]+)\\s(0x[0-9A-Fa-f]+),\\s(i|d)"); // square brackets any character inside them, parentheses allow alteration, so i or d
+        Pattern mainPattern = Pattern.compile("([A-Z]+)\\s(0x[0-9A-Fa-f]+),\\s(i|d)"); // square brackets any character inside them, parentheses allow alteration, so i or d, need all 3
+        Pattern simplifiedPattern = Pattern.compile("(ASLA|ASRA)"); // for ASLA and ASRA
         Pattern stopPattern = Pattern.compile("(STOP)");
         Pattern endPattern = Pattern.compile("\\.END");
-        Matcher matcher = mainPattern.matcher(documentContent);
+
+        Matcher mainMatcher = mainPattern.matcher(documentContent);
+        Matcher simplifiedMatcher = simplifiedPattern.matcher(documentContent);
+        Matcher stopMatcher = stopPattern.matcher(documentContent);
+        Matcher endMatcher = endPattern.matcher(documentContent);
         StringBuilder machineCode = new StringBuilder();
+        int position = 0;
+        while (position < documentContent.length()){
+            boolean mainMatch = mainMatcher.find(position);
+            boolean simplifiedMatch = simplifiedMatcher.find(position);
 
-        while (matcher.find()){
-            String opcode = matcher.group(1);
-            String address = matcher.group(2); /// numbers
-            String mode = matcher.group(3);
-            String machineCodeOpcode = opcodeMap.get(opcode);
-            if (machineCodeOpcode != null) {
-                machineCode.append(machineCodeOpcode).append(" "); // adds updated opcode first
+            if (mainMatch && (!simplifiedMatch || mainMatcher.start() < simplifiedMatcher.start())) {
+                String opcode = mainMatcher.group(1);
+                String address = mainMatcher.group(2);
+                String mode = mainMatcher.group(3);
+                String machineCodeOpcode = opcodeMap.get(opcode);
+                if (machineCodeOpcode != null) {
+                    machineCode.append(machineCodeOpcode).append(" ");
 
-                String cleanAddress = address.replaceFirst("(?i)0x", ""); // checks 0x and removes (?i) makes it case insensitive
-                String correctedAddress = String.format("%4s", cleanAddress).replace(' ', '0'); //adds 0s to the left till its size 4
-                String SplitAddress1 = correctedAddress.substring(0,2);
-                String SplitAddress2 = correctedAddress.substring(2,4);
-                machineCode.append(SplitAddress1).append(" ").append(SplitAddress2).append(" "); // adds corrected size to finished machine code
-
-
+                    String cleanAddress = address.replaceFirst("(?i)0x", ""); // Remove the 0x prefix
+                    String correctedAddress = String.format("%4s", cleanAddress).replace(' ', '0'); // Pad to 4 characters
+                    String splitAddress1 = correctedAddress.substring(0, 2);
+                    String splitAddress2 = correctedAddress.substring(2, 4);
+                    machineCode.append(splitAddress1).append(" ").append(splitAddress2).append(" ");
+                }
+                // Update the position to continue after this match
+                position = mainMatcher.end();
+            } else if (simplifiedMatch) {
+                String opcode = simplifiedMatcher.group(1);
+                String machineCodeOpcode = opcodeMap.get(opcode);
+                if (machineCodeOpcode != null) {
+                    machineCode.append(machineCodeOpcode).append(" ");
+                }
+                // Update the position to continue after this match
+                position = simplifiedMatcher.end();
+            } else {
+                break; // No more matches
             }
         }
-        Matcher stopMatcher = stopPattern.matcher(documentContent);
         if (stopMatcher.find()) {
             machineCode.append("00 ");
         }
-        Matcher endMatcher = endPattern.matcher(documentContent);
         if (endMatcher.find()) {
             machineCode.append("zz");
         }
