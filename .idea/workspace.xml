@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="486ce153-8aa1-4b8a-a7b3-6e66a600e4ea" name="Changes" comment=":sparkles: added while loop">
+    <list default="true" id="486ce153-8aa1-4b8a-a7b3-6e66a600e4ea" name="Changes" comment=":sparkles: Done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pepem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Pepasm.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +39,20 @@
   <component name="RunManager">
     <configuration name="Parser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Parser" />
-      <module name="Pepem" />
+      <module name="Pepasm" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Pepasm" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Pepasm" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -79,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1728687492656</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary=":sparkles: Done">
+      <created>1728690470578</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728690470578</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -97,6 +118,7 @@
     <MESSAGE value=":tada: initial commit" />
     <MESSAGE value=":sparkles: added splitting of address" />
     <MESSAGE value=":sparkles: added while loop" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: added while loop" />
+    <MESSAGE value=":sparkles: Done" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: Done" />
   </component>
 </project>
